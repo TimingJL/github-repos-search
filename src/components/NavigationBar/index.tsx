@@ -8,6 +8,8 @@ const useStyles = makeStyles(() =>
 			display: 'flex',
 			alignItems: 'center',
 			padding: '0 20px',
+			background: '#016AA6',
+			color: 'white',
 		},
 		title: {
 			flexGrow: 1,
