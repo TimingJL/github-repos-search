@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/github-repos-search/static/css/main.c4a995cf.chunk.css",
+    "main.js": "/github-repos-search/static/js/main.841b99fb.chunk.js",
+    "main.js.map": "/github-repos-search/static/js/main.841b99fb.chunk.js.map",
+    "runtime-main.js": "/github-repos-search/static/js/runtime-main.eaa3f2cd.js",
+    "runtime-main.js.map": "/github-repos-search/static/js/runtime-main.eaa3f2cd.js.map",
+    "static/js/2.98b794ff.chunk.js": "/github-repos-search/static/js/2.98b794ff.chunk.js",
+    "static/js/2.98b794ff.chunk.js.map": "/github-repos-search/static/js/2.98b794ff.chunk.js.map",
+    "index.html": "/github-repos-search/index.html",
+    "precache-manifest.23d590075facd18619ec6de3bc271cfc.js": "/github-repos-search/precache-manifest.23d590075facd18619ec6de3bc271cfc.js",
+    "service-worker.js": "/github-repos-search/service-worker.js",
+    "static/css/main.c4a995cf.chunk.css.map": "/github-repos-search/static/css/main.c4a995cf.chunk.css.map",
+    "static/js/2.98b794ff.chunk.js.LICENSE.txt": "/github-repos-search/static/js/2.98b794ff.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.eaa3f2cd.js",
+    "static/js/2.98b794ff.chunk.js",
+    "static/css/main.c4a995cf.chunk.css",
+    "static/js/main.841b99fb.chunk.js"
+  ]
+}
