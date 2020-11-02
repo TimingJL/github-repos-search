@@ -1,7 +1,8 @@
 import React from 'react';
+import MainPage from 'containers/MainPage';
 
 const App = () => {
-	return <h1>github repos search</h1>;
+	return <MainPage />;
 };
 
 export default App;
