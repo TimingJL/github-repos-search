@@ -1,4 +1,6 @@
 import React from 'react';
+import SearchBarBlock from './SearchBarBlock';
+import SearchResult from './SearchResult';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => {
@@ -16,7 +18,12 @@ const useStyles = makeStyles(theme => {
 
 const MainContent = () => {
 	const classes = useStyles();
-	return <div className={classes.root}>Main Content</div>;
+	return (
+		<div className={classes.root}>
+			<SearchBarBlock />
+			<SearchResult />
+		</div>
+	);
 };
 
 export default MainContent;
