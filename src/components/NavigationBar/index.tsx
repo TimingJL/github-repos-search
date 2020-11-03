@@ -26,16 +26,16 @@ const useStyles = makeStyles(theme => {
 			display: 'flex',
 			justifyContent: 'center',
 		},
-		container: {
+		container: (props: IProps) => ({
 			display: 'flex',
 			alignItems: 'center',
 			justifyContent: 'space-between',
-			padding: '0 20px',
+			padding: props.matches ? '0 20px' : '0 8px 0 20px',
 			margin: 'auto',
 			boxSizing: 'border-box',
 			width: 1280,
 			maxWidth: 1280,
-		},
+		}),
 		logo: (props: IProps) => ({
 			display: 'block',
 			height: 28,
