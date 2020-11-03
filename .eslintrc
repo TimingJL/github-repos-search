@@ -1,53 +1,26 @@
 {
-  "settings": {
-    "react": {
-        "version": "latest"
-    }
-  },
-  "env": {
-    "browser": true,
-    "es6": true
-  },
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "react", "react-hooks"],
   "extends": [
     "eslint:recommended",
-    "plugin:react/recommended",
     "plugin:@typescript-eslint/eslint-recommended",
-    "prettier",
-    "plugin:prettier/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended"
   ],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaFeatures": {
-      "jsx": true
-    },
-    "ecmaVersion": 2018,
-    "sourceType": "module",
-    "project": "./tsconfig.json"
-  },
-  "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
-    "prettier/prettier": [
-      "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "@typescript-eslint/interface-name-prefix": [ "error", { "prefixWithI": "always" }],
+    "@typescript-eslint/no-unused-vars": [
+      2,
       {
-        "bracketSpacing": true,
-        "jsxBracketSameLine": false,
-        "printWidth": 90,
-        "semi": true,
-        "singleQuote": true,
-        "tabWidth": 4,
-        "trailingComma": "es5",
-        "useTabs": true,
-        "overrides": [
-          {
-            "files": "{.prettierrc,.watchmanconfig,.ember-cli}",
-            "options": {"parser": "json"}
-          }
-        ]
+        "vars": "all",
+        "args": "all",
+        "varsIgnorePattern": "^jsx$",
+        "argsIgnorePattern": "[Ii]gnored$"
       }
-    ]
+    ],
+    "@typescript-eslint/no-use-before-define": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }
