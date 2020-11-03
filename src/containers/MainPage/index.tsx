@@ -1,5 +1,6 @@
 import React from 'react';
-import NavigationBar from 'components/NavigationBar';
+import Header from './Header';
+import MainContent from './MainContent';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(() => {
@@ -9,19 +10,21 @@ const useStyles = makeStyles(() => {
 			flexDirection: 'column',
 			height: '100vh',
 		},
-		mainContent: {
-			background: 'grey',
-			flex: '1 1 auto',
-		},
 	};
 });
 
-const MainPage = () => {
+interface IMainPage {
+	isDarkMode: boolean;
+	handleChangeTheme: () => void;
+}
+
+const MainPage = ({ isDarkMode, handleChangeTheme }: IMainPage) => {
 	const classes = useStyles();
+
 	return (
 		<div className={classes.root}>
-			<NavigationBar />
-			<div className={classes.mainContent}>Main Content</div>
+			<Header isDarkMode={isDarkMode} handleChangeTheme={handleChangeTheme} />
+			<MainContent />
 		</div>
 	);
 };

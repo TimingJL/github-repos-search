@@ -1,28 +1,52 @@
 import React from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
+import {
+	Brightness7 as Brightness7Icon,
+	Brightness4 as Brightness4Icon,
+} from '@material-ui/icons';
+import IconButton from '@material-ui/core/IconButton';
 
-const useStyles = makeStyles(() =>
-	createStyles({
+const useStyles = makeStyles(theme => {
+	const {
+		custom: { navigationBar },
+		navigationBar: { height },
+	} = theme as any;
+	return {
 		root: {
-			height: 48,
+			height: height,
 			display: 'flex',
 			alignItems: 'center',
 			padding: '0 20px',
-			background: '#016AA6',
-			color: 'white',
+			background: navigationBar.backgroundColor,
+			color: navigationBar.color,
 		},
 		title: {
 			flexGrow: 1,
 		},
-	})
-);
+		button: {
+			color: navigationBar.color,
+		},
+	};
+});
 
-const NavigationBar = () => {
+interface INavigationBar {
+	isDarkMode: boolean;
+	handleChangeTheme: () => void;
+}
+
+const NavigationBar = ({ isDarkMode, handleChangeTheme }: INavigationBar) => {
 	const classes = useStyles();
-
+	const ThemeIcon = isDarkMode ? Brightness7Icon : Brightness4Icon;
 	return (
 		<div className={classes.root}>
 			<div className={classes.title}>Github Repos Search</div>
+			<IconButton
+				className={classes.button}
+				aria-label="theme change"
+				onClick={handleChangeTheme}
+			>
+				<ThemeIcon />
+			</IconButton>
 		</div>
 	);
 };
