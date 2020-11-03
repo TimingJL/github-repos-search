@@ -59,7 +59,7 @@ const NavigationBar = ({ isDarkMode, handleChangeTheme }: INavigationBar) => {
 	return (
 		<div className={classes.root}>
 			<div className={classes.container}>
-				<img src={dcardLogoPath} className={classes.logo} />
+				<img src={dcardLogoPath} className={classes.logo} alt="dcard logo" />
 				<IconButton
 					className={classes.button}
 					aria-label="theme change"

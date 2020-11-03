@@ -14,11 +14,17 @@ const useStyles = makeStyles(() => {
 	};
 });
 
-const SearchBarBlock = () => {
+interface ISearchBarBlock {
+	handleOnChange: (
+		event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+	) => void;
+}
+
+const SearchBarBlock = ({ handleOnChange }: ISearchBarBlock) => {
 	const classes = useStyles();
 	return (
 		<div className={classes.root}>
-			<SearchBar />
+			<SearchBar handleOnChange={handleOnChange} />
 		</div>
 	);
 };

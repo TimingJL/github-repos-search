@@ -24,7 +24,13 @@ const useStyles = makeStyles(theme =>
 	})
 );
 
-const SearchBar = () => {
+interface ISearchBar {
+	handleOnChange: (
+		event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+	) => void;
+}
+
+const SearchBar = ({ handleOnChange }: ISearchBar) => {
 	const classes = useStyles();
 
 	return (
@@ -36,6 +42,7 @@ const SearchBar = () => {
 				className={classes.input}
 				placeholder="Github repos search"
 				inputProps={{ 'aria-label': 'Github repos search' }}
+				onChange={handleOnChange}
 			/>
 		</Paper>
 	);
