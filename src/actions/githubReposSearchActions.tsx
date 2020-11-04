@@ -16,10 +16,11 @@ export {
 	UPDATE_REPOSITORIES_LOADING
 };
 
-const fetchRepositories = ({ queryString }) => ({
+const fetchRepositories = ({ queryString, perPage }) => ({
 	type: FETCH_REPOSITORIES,
 	payload: {
 		queryString,
+		perPage,
 	},
 });
 
@@ -40,11 +41,9 @@ const fetchRepositoriesLoading = () => ({
 	type: FETCH_REPOSITORIES_LOADING,
 });
 
-const loadRepositories = ({ queryString }) => ({
+const loadRepositories = ({ queryString, page, perPage }) => ({
 	type: LOAD_REPOSITORIES,
-	payload: {
-		queryString,
-	},
+	payload: { queryString, page, perPage },
 });
 
 const loadRepositoriesLoading = () => ({

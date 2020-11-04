@@ -24,19 +24,24 @@ interface IMainContent {
   fetchMeta: any;
   loadMeta: any;
   repositories: any;
-  handleFetchRepositories: (queryString: string) => void;
+  page: number;
+  perPage: number;
+  isLastPage: boolean;
+  handleFetchRepositories: (props: any) => void;
   handleLoadRepositories: (props: any) => void;
 }
 
-const MainContent = ({ repositories, fetchMeta, loadMeta, handleFetchRepositories, handleLoadRepositories }: IMainContent) => {
+const MainContent = ({ repositories, fetchMeta, loadMeta, page, perPage, isLastPage, handleFetchRepositories, handleLoadRepositories }: IMainContent) => {
   const mainContentRef = useRef() as any;
   const classes = useStyles();
   const [queryString, setQueryString] = useState('')
   const handleOnQueryChange = useCallback(
     event => {
       const value = event.target.value;
-      handleFetchRepositories(value);
-      setQueryString(value);
+      if (value.length > 0) {
+        handleFetchRepositories({ queryString: value, perPage });
+        setQueryString(value);
+      }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
@@ -47,9 +52,8 @@ const MainContent = ({ repositories, fetchMeta, loadMeta, handleFetchRepositorie
     const $rDOM = mainContentRef.current;
     const scrollPos = $rDOM.scrollTop + $rDOM.clientHeight;
     const divHeight = $rDOM.scrollHeight;
-
-    if (scrollPos >= divHeight) {
-      handleLoadRepositories({ queryString })
+    if ((scrollPos >= divHeight) && !isLastPage) {
+      handleLoadRepositories({ queryString, page, perPage })
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainContentRef]);
@@ -71,18 +75,21 @@ const MainContent = ({ repositories, fetchMeta, loadMeta, handleFetchRepositorie
 };
 
 const mapStateToProps = state => {
-  const { repositories, fetchMeta, loadMeta } = state.githubReposSearchReducer;
+  const { repositories, fetchMeta, loadMeta, page, perPage, isLastPage } = state.githubReposSearchReducer;
   return {
     repositories,
     fetchMeta,
     loadMeta,
+    page,
+    perPage,
+    isLastPage,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleFetchRepositories: queryString =>
-    dispatch(fetchRepositories({ queryString })),
-  handleLoadRepositories: ({ queryString }) => dispatch(loadRepositories({ queryString }))
+  handleFetchRepositories: (params) =>
+    dispatch(fetchRepositories(params)),
+  handleLoadRepositories: (params) => dispatch(loadRepositories(params))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainContent);
