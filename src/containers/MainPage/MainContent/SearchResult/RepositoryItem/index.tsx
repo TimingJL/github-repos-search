@@ -49,7 +49,6 @@ interface IRepositoryItem {
 const RepositoryItem = ({ item }: IRepositoryItem) => {
   const classes = useStyles();
   const { owner } = item;
-  console.log('item: ', item)
   return (
     <div className={classes.root}>
       <Avatar alt={owner.login} src={owner.avatar_url} />
