@@ -4,6 +4,7 @@ import SearchBarBlock from "./SearchBarBlock";
 import SearchResult from "./SearchResult";
 import { makeStyles } from "@material-ui/core/styles";
 import { fetchRepositories } from "actions/githubReposSearchActions";
+import CircularIndeterminate from 'components/CircularIndeterminate'
 
 const useStyles = makeStyles(theme => {
   const {
@@ -19,11 +20,14 @@ const useStyles = makeStyles(theme => {
 });
 
 interface IMainContent {
+  fetchMeta: any;
+  repositories: any;
   handleFetchRepositories: (queryString: string) => void;
 }
 
-const MainContent = ({ handleFetchRepositories }: IMainContent) => {
+const MainContent = ({ repositories, fetchMeta, handleFetchRepositories }: IMainContent) => {
   const classes = useStyles();
+  const { isLoading, isLoaded } = fetchMeta;
   const handleOnQueryChange = useCallback(
     event => {
       const value = event.target.value;
@@ -36,15 +40,21 @@ const MainContent = ({ handleFetchRepositories }: IMainContent) => {
   return (
     <div className={classes.root}>
       <SearchBarBlock handleOnChange={handleOnQueryChange} />
-      <SearchResult />
+      {
+        isLoading && <CircularIndeterminate color={"#fff"} />
+      }
+      {
+        isLoaded && <SearchResult repositories={repositories} />
+      }
     </div>
   );
 };
 
 const mapStateToProps = state => {
-  const { repositories } = state.githubReposSearchReducer;
+  const { repositories, fetchMeta } = state.githubReposSearchReducer;
   return {
-    repositories
+    repositories,
+    fetchMeta
   };
 };
 
