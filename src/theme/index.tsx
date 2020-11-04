@@ -18,10 +18,6 @@ const customTheme = {
 				backgroundColor: '#181818',
 				color: '#fff',
 			},
-			repositoryItem: {
-				color: '#24292E',
-				secondaryColor: '#586096',
-			},
 			border: {
 				default: '1px solid #fff3',
 			},
@@ -39,10 +35,6 @@ const customTheme = {
 			mainContent: {
 				backgroundColor: '#00324E',
 				color: '#fff',
-			},
-			repositoryItem: {
-				color: '#24292E',
-				secondaryColor: '#586096',
 			},
 			border: {
 				default: '1px solid #01588A',

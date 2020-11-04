@@ -15,14 +15,10 @@ const StyledChip = withStyles(() => {
   };
 })(Chip);
 
-const useStyles = makeStyles((theme) => {
-  const {
-    custom: { repositoryItem }
-  } = theme as any;
+const useStyles = makeStyles(() => {
   return {
     root: {
       display: 'flex',
-      color: repositoryItem.color,
     },
     content: {
       padding: '0 12px',
@@ -33,7 +29,6 @@ const useStyles = makeStyles((theme) => {
     },
     description: {
       fontSize: 14,
-      color: repositoryItem.secondaryColor,
       lineHeight: '24px',
     },
     chips: {

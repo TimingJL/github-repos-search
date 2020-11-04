@@ -3,6 +3,8 @@ import RepositoryItem from './RepositoryItem'
 import Container from '@material-ui/core/Container';
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import ListItem from '@material-ui/core/ListItem';
+import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
 
 const StyledContainer = withStyles(() => {
   return {
@@ -12,15 +14,15 @@ const StyledContainer = withStyles(() => {
   };
 })(Container);
 
-const useStyles = makeStyles(() => {
+const useStyles = makeStyles((theme) => {
+	const { palette } = theme;
   return {
     root: {
-			borderRadius: 4,
 			padding: '8px 0',
-			background: 'white',
 		},
 		item: {
-			borderBottom: '1px solid #ddd',
+			padding: '16px 12px',
+			borderBottom: `1px solid ${palette.divider}`,
 		}
   };
 });
@@ -34,15 +36,16 @@ const SearchResult = ({ repositories }: ISearchResult) => {
 	const { items } = repositories;
 	return (
 		<StyledContainer maxWidth="md">
-			<div className={classes.root}>
+			<Paper elevation={0}>
 				{
 					items.map((item) => (
 						<ListItem button key={item.id} className={classes.item}>
 							<RepositoryItem item={item} />
+							<Divider />
 						</ListItem>
 					))
 				}
-			</div>
+			</Paper>
 		</StyledContainer>
 	);
 };
