@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme: Theme) => {
       },
       alignItems: 'center',
       justifyContent: 'center',
+      padding: '12px 0',
     },
   })
 });
