@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme =>
 			padding: '2px 4px',
 			display: 'flex',
 			alignItems: 'center',
-			width: 700,
+			width: 912,
 			borderRadius: 4,
 		},
 		input: {
