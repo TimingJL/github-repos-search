@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import Chip from '@material-ui/core/Chip';
@@ -60,4 +60,4 @@ const RepositoryItem = ({ item }: IRepositoryItem) => {
   )
 }
 
-export default RepositoryItem;
+export default memo(RepositoryItem);
