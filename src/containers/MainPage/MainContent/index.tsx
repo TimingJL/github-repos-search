@@ -18,6 +18,9 @@ const useStyles = makeStyles(theme => {
       color: mainContent.color,
       flex: "1 1 auto",
       overflowY: 'auto',
+    },
+    bottomInfo: {
+      height: 100,
     }
   };
 });
@@ -87,8 +90,10 @@ const MainContent = ({
       <MessageBlock type="error" message={fetchMeta.error} />
       {fetchMeta.isLoading && <CircularIndeterminate color={"#fff"} />}
       {fetchMeta.isLoaded && <SearchResult repositories={repositories} />}
-      {loadMeta.isLoading && <CircularIndeterminate color={"#fff"} />}
-      <MessageBlock type="error" message={loadMeta.error} />
+      <div className={classes.bottomInfo}>
+        <MessageBlock type="error" message={loadMeta.error} />
+        {loadMeta.isLoading && <CircularIndeterminate color={"#fff"} />}
+      </div>
     </div>
   );
 };
