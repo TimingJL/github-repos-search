@@ -8,6 +8,7 @@
     "plugin:react/recommended"
   ],
   "rules": {
+    "semi": ["error", "always"],
     "react-hooks/exhaustive-deps": "warn",
     "@typescript-eslint/interface-name-prefix": [ "error", { "prefixWithI": "always" }],
     "@typescript-eslint/no-unused-vars": [
