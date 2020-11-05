@@ -2,7 +2,7 @@ import { ofType } from 'redux-observable';
 import { of } from 'rxjs';
 import { switchMap, mergeMap, startWith, catchError, debounceTime } from 'rxjs/operators';
 import { FETCH_REPOSITORIES, LOAD_REPOSITORIES } from 'actions/githubReposSearchActions';
-import { request, fetchErrorEpic } from 'utils/request';
+import { request } from 'utils/request';
 import { fetchRepositoriesLoading, setRepositories, updateRepositories, loadRepositoriesLoading } from 'actions/githubReposSearchActions'
 
 const githubBaseUrl = 'https://api.github.com/search/repositories'
@@ -22,10 +22,7 @@ const fetchRepositoriesEpic = (action$) => {
 						setRepositories({ data })
 					)
 				}),
-        catchError((error) => fetchErrorEpic(
-          error,
-					setRepositories({ error }),
-        )),
+        catchError((error) => of(setRepositories({ error }))),
 				startWith(fetchRepositoriesLoading()),
 			);
 		})
@@ -46,10 +43,7 @@ const loadRepositoriesEpic = (action$) => {
 						updateRepositories({ data })
 					)
 				}),
-        catchError((error) => fetchErrorEpic(
-          error,
-					updateRepositories({ error }),
-        )),
+				catchError((error) => of(updateRepositories({ error }))),
 				startWith(loadRepositoriesLoading()),
 			);
 		})

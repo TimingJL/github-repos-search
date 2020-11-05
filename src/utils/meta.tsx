@@ -16,10 +16,10 @@ export const updateMetaDone = (meta) => update(meta, {
   [ERROR]: { $set: null },
 })
 
-export const updateMetaError = (meta) => update(meta, {
+export const updateMetaError = (meta, error) => update(meta, {
   [LOADING]: { $set: false },
   [LOADED]: { $set: false },
-  [ERROR]: { $set: true },
+  [ERROR]: { $set: error.message },
 })
 
 export default {

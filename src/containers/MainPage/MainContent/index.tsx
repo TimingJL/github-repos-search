@@ -5,6 +5,8 @@ import SearchResult from "./SearchResult";
 import { makeStyles } from "@material-ui/core/styles";
 import { fetchRepositories, loadRepositories } from "actions/githubReposSearchActions";
 import CircularIndeterminate from 'components/CircularIndeterminate'
+import { IMeta, IGithubReposSearchReducer } from 'types';
+import MessageBlock from './MessageBlock';
 
 const useStyles = makeStyles(theme => {
   const {
@@ -19,12 +21,6 @@ const useStyles = makeStyles(theme => {
     }
   };
 });
-
-interface IMeta {
-  isLoading: boolean;
-  isLoaded: boolean;
-  error: string | null;
-}
 
 interface IFetchReposParams {
   queryString: string;
@@ -85,24 +81,19 @@ const MainContent = ({
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainContentRef]);
-
   return (
     <div ref={mainContentRef} className={classes.root} onScroll={handleOnScroll}>
       <SearchBarBlock handleOnChange={handleOnQueryChange} />
-      {
-        fetchMeta.isLoading && <CircularIndeterminate color={"#fff"} />
-      }
-      {
-        fetchMeta.isLoaded && <SearchResult repositories={repositories} />
-      }
-      {
-        loadMeta.isLoading && <CircularIndeterminate color={"#fff"} />
-      }
+      <MessageBlock type="error" message={fetchMeta.error} />
+      {fetchMeta.isLoading && <CircularIndeterminate color={"#fff"} />}
+      {fetchMeta.isLoaded && <SearchResult repositories={repositories} />}
+      {loadMeta.isLoading && <CircularIndeterminate color={"#fff"} />}
+      <MessageBlock type="error" message={loadMeta.error} />
     </div>
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const {
     repositories,
     fetchMeta,
@@ -110,7 +101,7 @@ const mapStateToProps = state => {
     page,
     perPage,
     isLastPage
-  } = state.githubReposSearchReducer;
+  } = state.githubReposSearchReducer as IGithubReposSearchReducer;
   return {
     repositories,
     fetchMeta,

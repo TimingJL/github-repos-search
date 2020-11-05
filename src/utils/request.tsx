@@ -1,9 +1,7 @@
-import { of, from } from 'rxjs';
+import { from } from 'rxjs';
 import {
   mergeMap, map
 } from 'rxjs/operators';
-
-const fetchErrorEpic = (err, ...actions) => of(err.action, ...actions);
 
 const getFetchOption = (method, headers, data) => {
   const defaultOption = {
@@ -49,4 +47,4 @@ const request = (action) => {
     )
 }
 
-export { request, fetchErrorEpic }
+export { request }

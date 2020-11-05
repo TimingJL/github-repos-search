@@ -11,6 +11,7 @@ import META, {
   updateMetaDone,
   updateMetaError,
 } from 'utils/meta';
+import { IGithubReposSearchReducer } from 'types';
 
 interface IIsLastPage {
 	page: number;
@@ -25,26 +26,7 @@ const isLastPage = ({ page, perPage, totalCount }: IIsLastPage): boolean => {
 	return false;
 }
 
-interface IMeta {
-  isLoading: boolean;
-  isLoaded: boolean;
-  error: string | null;
-}
-
-interface IState {
-	page: number;
-	perPage: number;
-	isLastPage: boolean;
-	repositories: {
-		total_count: number;
-		incomplete_results: boolean;
-		items: any;
-	};
-	fetchMeta: IMeta;
-	loadMeta: IMeta;
-}
-
-const initialState: IState = {
+const initialState: IGithubReposSearchReducer = {
 	page: 1,
 	perPage: 30,
 	isLastPage: false,
@@ -68,7 +50,7 @@ export default (state = initialState, action) => {
 		case SET_REPOSITORIES: {
 			if (error) {
 				return update(state, {
-					fetchMeta: { $apply: updateMetaError }
+					fetchMeta: { $apply: (prevMeta) => updateMetaError(prevMeta, error) }
 				})
 			}
 			return update(state, {
@@ -90,7 +72,7 @@ export default (state = initialState, action) => {
 		case UPDATE_REPOSITORIES_LOADING: {
 			if (error) {
 				return update(state, {
-					loadMeta: { $apply: updateMetaError }
+					loadMeta: { $apply: (prevMeta) => updateMetaError(prevMeta, error) }
 				})
 			}
 			return update(state, {
