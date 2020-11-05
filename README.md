@@ -38,7 +38,7 @@ const matches = useMediaQuery('(min-width: 768px)');
 const classes = useStyles({ matches });
 ```
 
-另外，`Material-UI` 也提供 `<Container />` 這個容器元件，透過祂可以幫助我們完成水平置中的佈局，並且能夠適應螢幕大小。
+另外，`Material-UI` 也提供 `<Container />` 這個容器元件，透過他可以幫助我們完成水平置中的佈局，並且能夠適應螢幕大小。
 
 ### Infinite Scroll
 
@@ -102,7 +102,7 @@ const handleOnScroll = useCallback(() => {
 
 由於這邊發出 request 的時機是 onChange 的時候，不是 onSubmit ，因此會發生每打一個字就發出一個 request 的頻繁請求。
 
-簡單實現方法可以透過在函數域加入一個計時器，如果事件一直觸發，便刷新計時器，直至計時器時限內沒有觸發該事件，便執行事件行為。
+比起一打字就發出請求，我們希望能夠在使用者「不動作一段時間」之後再發出請求，簡單實現方法可以透過加入一個 setTimeout 計時器，如果事件一直觸發，便刷新計時器，直到計時器時限內沒有觸發該事件，便執行事件行為。
 
 ```js
 function debounce(func, delay=250) {
@@ -120,7 +120,7 @@ function debounce(func, delay=250) {
 }
 ```
 
-由於這個專案是透過 `redux-observable` 來處理非同步的 API 請求，他提供我們使用可讀性高的宣告式語法來做到 debounce。
+但由於這個專案是透過 `redux-observable` 來處理非同步的 API 請求，他提供我們使用可讀性高的宣告式語法來做到 debounce。
 
 如下所示，這邊設定為使用者不動作超過一秒，會幫忙把目前的 queryString 發送出去查詢。
 
