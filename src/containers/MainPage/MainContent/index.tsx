@@ -4,9 +4,9 @@ import SearchBarBlock from "./SearchBarBlock";
 import SearchResult from "./SearchResult";
 import { makeStyles } from "@material-ui/core/styles";
 import { fetchRepositories, loadRepositories } from "actions/githubReposSearchActions";
-import CircularIndeterminate from 'components/CircularIndeterminate'
+import CircularIndeterminate from 'components/CircularIndeterminate';
 import { IMeta, IGithubReposSearchReducer } from 'types';
-import MessageBlock from './MessageBlock';
+import MessageBlock from 'components/MessageBlock';
 
 const useStyles = makeStyles(theme => {
   const {
@@ -59,7 +59,7 @@ const MainContent = ({
 }: IMainContent) => {
   const mainContentRef = useRef<HTMLInputElement>(null);
   const classes = useStyles();
-  const [queryString, setQueryString] = useState('')
+  const [queryString, setQueryString] = useState('');
   const handleOnQueryChange = useCallback(
     event => {
       const value = event.target.value;
@@ -79,7 +79,7 @@ const MainContent = ({
       const scrollPos = mainContentElem.scrollTop + mainContentElem.clientHeight;
       const divHeight = mainContentElem.scrollHeight;
       if ((scrollPos >= divHeight) && !isLastPage) {
-        handleLoadRepositories({ queryString, page, perPage })
+        handleLoadRepositories({ queryString, page, perPage });
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

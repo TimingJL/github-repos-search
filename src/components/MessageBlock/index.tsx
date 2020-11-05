@@ -51,4 +51,4 @@ const MessageBlock = ({ type = 'normal', message }: IMessageBlock) => {
   );
 };
 
-export default MessageBlock
+export default MessageBlock;
