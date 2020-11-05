@@ -24,7 +24,7 @@ const isLastPage = ({ page, perPage, totalCount }: IIsLastPage): boolean => {
 		return true;
 	}
 	return false;
-}
+};
 
 const initialState: IGithubReposSearchReducer = {
 	page: 1,
@@ -51,7 +51,7 @@ export default (state = initialState, action) => {
 			if (error) {
 				return update(state, {
 					fetchMeta: { $apply: (prevMeta) => updateMetaError(prevMeta, error) }
-				})
+				});
 			}
 			return update(state, {
 				repositories: { $set: action.payload.data },
@@ -73,7 +73,7 @@ export default (state = initialState, action) => {
 			if (error) {
 				return update(state, {
 					loadMeta: { $apply: (prevMeta) => updateMetaError(prevMeta, error) }
-				})
+				});
 			}
 			return update(state, {
 				repositories: {
@@ -87,7 +87,7 @@ export default (state = initialState, action) => {
 				}},
 				page: { $apply: (prevPage) => {
 					const { isLastPage } = state;
-					return isLastPage ? prevPage : prevPage + 1
+					return isLastPage ? prevPage : prevPage + 1;
 				}},
 				loadMeta: { $apply: updateMetaDone }
 			});

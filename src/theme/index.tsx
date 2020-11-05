@@ -4,7 +4,6 @@ const sharedProperty = {
 	navigationBar: {
 		height: 48,
 	},
-	color: {},
 };
 
 const customTheme = {

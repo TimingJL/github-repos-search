@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => {
       justifyContent: 'center',
       padding: '12px 0',
     },
-  })
+  });
 });
 
 interface ICircularIndeterminate {
@@ -28,6 +28,6 @@ const CircularIndeterminate = ({ color }: ICircularIndeterminate) => {
       <CircularProgress style={{ color: color }} />
     </div>
   );
-}
+};
 
 export default CircularIndeterminate;

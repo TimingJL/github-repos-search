@@ -57,7 +57,7 @@ const RepositoryItem = ({ item }: IRepositoryItem) => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default memo(RepositoryItem);

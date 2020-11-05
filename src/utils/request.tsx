@@ -42,9 +42,9 @@ const request = (action) => {
         }, (err) => reject(err));
       }))),
       map((value: any) => {
-        return value.res
+        return value.res;
       })
-    )
-}
+    );
+};
 
-export { request }
+export { request };

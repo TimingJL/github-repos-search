@@ -1,5 +1,5 @@
 import React from 'react';
-import RepositoryItem from './RepositoryItem'
+import RepositoryItem from './RepositoryItem';
 import Container from '@material-ui/core/Container';
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import ListItem from '@material-ui/core/ListItem';
