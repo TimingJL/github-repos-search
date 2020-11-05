@@ -3,9 +3,9 @@ import { of } from 'rxjs';
 import { switchMap, mergeMap, startWith, catchError, debounceTime } from 'rxjs/operators';
 import { FETCH_REPOSITORIES, LOAD_REPOSITORIES } from 'actions/githubReposSearchActions';
 import { request } from 'utils/request';
-import { fetchRepositoriesLoading, setRepositories, updateRepositories, loadRepositoriesLoading } from 'actions/githubReposSearchActions'
+import { fetchRepositoriesLoading, setRepositories, updateRepositories, loadRepositoriesLoading } from 'actions/githubReposSearchActions';
 
-const githubBaseUrl = 'https://api.github.com/search/repositories'
+const githubBaseUrl = 'https://api.github.com/search/repositories';
 
 const fetchRepositoriesEpic = (action$) => {
 	return action$.pipe(
@@ -20,7 +20,7 @@ const fetchRepositoriesEpic = (action$) => {
         mergeMap((data) => {
 					return of(
 						setRepositories({ data })
-					)
+					);
 				}),
         catchError((error) => of(setRepositories({ error }))),
 				startWith(fetchRepositoriesLoading()),
@@ -41,7 +41,7 @@ const loadRepositoriesEpic = (action$) => {
         mergeMap((data) => {
 					return of(
 						updateRepositories({ data })
-					)
+					);
 				}),
 				catchError((error) => of(updateRepositories({ error }))),
 				startWith(loadRepositoriesLoading()),
