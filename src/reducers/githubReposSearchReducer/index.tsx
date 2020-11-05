@@ -12,12 +12,45 @@ import META, {
   updateMetaError,
 } from 'utils/meta';
 
-const initialState = {
+interface IIsLastPage {
+	page: number;
+	perPage: number;
+	totalCount: number;
+}
+
+const isLastPage = ({ page, perPage, totalCount }: IIsLastPage): boolean => {
+	if (page * perPage >= totalCount) {
+		return true;
+	}
+	return false;
+}
+
+interface IMeta {
+  isLoading: boolean;
+  isLoaded: boolean;
+  error: string | null;
+}
+
+interface IState {
+	page: number;
+	perPage: number;
+	isLastPage: boolean;
+	repositories: {
+		total_count: number;
+		incomplete_results: boolean;
+		items: any;
+	};
+	fetchMeta: IMeta;
+	loadMeta: IMeta;
+}
+
+const initialState: IState = {
 	page: 1,
 	perPage: 30,
 	isLastPage: false,
 	repositories: {
 		total_count: 0,
+		incomplete_results: false,
 		items: [],
 	},
 	fetchMeta: META,
@@ -44,10 +77,7 @@ export default (state = initialState, action) => {
 				isLastPage: { $apply: () => {
 					const { page, perPage } = state;
 					const totalCount = action.payload.data.total_count;
-					if (page * perPage >= totalCount) {
-						return true;
-					}
-					return false;
+					return isLastPage({ page, perPage, totalCount });
 				}},
 				page: { $apply: (prevPage) => prevPage + 1},
 			});
@@ -64,32 +94,18 @@ export default (state = initialState, action) => {
 				})
 			}
 			return update(state, {
-				repositories: { $apply: (prevRepositories) => {
-					const { items } = action.payload.data;
-					const prevItems = prevRepositories.items;
-					const updatedRepositories = ({
-						...action.payload.data,
-						items: [
-							...prevItems,
-							...items,
-						]
-					});
-					return updatedRepositories;
-				}},
+				repositories: {
+					incomplete_results: { $set: action.payload.data.incomplete_results },
+					items: { $push: action.payload.data.items }
+				},
 				isLastPage: { $apply: () => {
 					const { page, perPage } = state;
 					const totalCount = action.payload.data.total_count;
-					if (page * perPage >= totalCount) {
-						return true;
-					}
-					return false;
+					return isLastPage({ page, perPage, totalCount });
 				}},
 				page: { $apply: (prevPage) => {
 					const { isLastPage } = state;
-					if (isLastPage) {
-						return prevPage;
-					}
-					return prevPage + 1;
+					return isLastPage ? prevPage : prevPage + 1
 				}},
 				loadMeta: { $apply: updateMetaDone }
 			});
