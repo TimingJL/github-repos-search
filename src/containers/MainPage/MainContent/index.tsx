@@ -20,19 +20,45 @@ const useStyles = makeStyles(theme => {
   };
 });
 
+interface IMeta {
+  isLoading: boolean;
+  isLoaded: boolean;
+  error: string | null;
+}
+
+interface IFetchReposParams {
+  queryString: string;
+  perPage: number;
+}
+
+interface ILoadReposParams {
+  queryString: string;
+  page: number;
+  perPage: number;
+}
+
 interface IMainContent {
-  fetchMeta: any;
-  loadMeta: any;
+  fetchMeta: IMeta;
+  loadMeta: IMeta;
   repositories: any;
   page: number;
   perPage: number;
   isLastPage: boolean;
-  handleFetchRepositories: (props: any) => void;
-  handleLoadRepositories: (props: any) => void;
+  handleFetchRepositories: (props: IFetchReposParams) => void;
+  handleLoadRepositories: (props: ILoadReposParams) => void;
 }
 
-const MainContent = ({ repositories, fetchMeta, loadMeta, page, perPage, isLastPage, handleFetchRepositories, handleLoadRepositories }: IMainContent) => {
-  const mainContentRef = useRef() as any;
+const MainContent = ({
+  repositories,
+  fetchMeta,
+  loadMeta,
+  page,
+  perPage,
+  isLastPage,
+  handleFetchRepositories,
+  handleLoadRepositories
+}: IMainContent) => {
+  const mainContentRef = useRef<HTMLInputElement>(null);
   const classes = useStyles();
   const [queryString, setQueryString] = useState('')
   const handleOnQueryChange = useCallback(
@@ -49,11 +75,13 @@ const MainContent = ({ repositories, fetchMeta, loadMeta, page, perPage, isLastP
 
 
   const handleOnScroll = useCallback(() => {
-    const $rDOM = mainContentRef.current;
-    const scrollPos = $rDOM.scrollTop + $rDOM.clientHeight;
-    const divHeight = $rDOM.scrollHeight;
-    if ((scrollPos >= divHeight) && !isLastPage) {
-      handleLoadRepositories({ queryString, page, perPage })
+    const mainContentElem = mainContentRef.current;
+    if (mainContentElem) {
+      const scrollPos = mainContentElem.scrollTop + mainContentElem.clientHeight;
+      const divHeight = mainContentElem.scrollHeight;
+      if ((scrollPos >= divHeight) && !isLastPage) {
+        handleLoadRepositories({ queryString, page, perPage })
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainContentRef]);
@@ -75,7 +103,14 @@ const MainContent = ({ repositories, fetchMeta, loadMeta, page, perPage, isLastP
 };
 
 const mapStateToProps = state => {
-  const { repositories, fetchMeta, loadMeta, page, perPage, isLastPage } = state.githubReposSearchReducer;
+  const {
+    repositories,
+    fetchMeta,
+    loadMeta,
+    page,
+    perPage,
+    isLastPage
+  } = state.githubReposSearchReducer;
   return {
     repositories,
     fetchMeta,
@@ -87,9 +122,9 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  handleFetchRepositories: (params) =>
+  handleFetchRepositories: (params: IFetchReposParams) =>
     dispatch(fetchRepositories(params)),
-  handleLoadRepositories: (params) => dispatch(loadRepositories(params))
+  handleLoadRepositories: (params: ILoadReposParams) => dispatch(loadRepositories(params))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainContent);
