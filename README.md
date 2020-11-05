@@ -87,6 +87,8 @@ const handleOnScroll = useCallback(() => {
 </ThemeProvider>
 ```
 
+![dark mode](demo/dark_mode.png)
+
 ### 避免過於頻繁的 API requests
 
 題目要我們做 `偵測文字輸入框的變動，並查詢相關的 GitHub repos`。
