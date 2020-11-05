@@ -16,7 +16,19 @@ export {
 	UPDATE_REPOSITORIES_LOADING
 };
 
-const fetchRepositories = ({ queryString, perPage }) => ({
+
+interface IRepositories {
+	error?: any;
+	data?: any;
+}
+
+interface IAction {
+	type: string;
+	error?: any;
+	payload?: any;
+}
+
+const fetchRepositories = ({ queryString, perPage }): IAction => ({
 	type: FETCH_REPOSITORIES,
 	payload: {
 		queryString,
@@ -24,12 +36,7 @@ const fetchRepositories = ({ queryString, perPage }) => ({
 	},
 });
 
-interface IRepositories {
-	error?: any;
-	data?: any;
-}
-
-const setRepositories = ({ error, data }: IRepositories) => ({
+const setRepositories = ({ error, data }: IRepositories): IAction => ({
 	type: SET_REPOSITORIES,
   error,
   payload: {
@@ -37,20 +44,20 @@ const setRepositories = ({ error, data }: IRepositories) => ({
 	},
 });
 
-const fetchRepositoriesLoading = () => ({
+const fetchRepositoriesLoading = (): IAction => ({
 	type: FETCH_REPOSITORIES_LOADING,
 });
 
-const loadRepositories = ({ queryString, page, perPage }) => ({
+const loadRepositories = ({ queryString, page, perPage }): IAction => ({
 	type: LOAD_REPOSITORIES,
 	payload: { queryString, page, perPage },
 });
 
-const loadRepositoriesLoading = () => ({
+const loadRepositoriesLoading = (): IAction => ({
 	type: LOAD_REPOSITORIES_LOADING,
 });
 
-const updateRepositories = ({ error, data }: IRepositories) => ({
+const updateRepositories = ({ error, data }: IRepositories): IAction => ({
 	type: UPDATE_REPOSITORIES_LOADING,
   error,
   payload: {
