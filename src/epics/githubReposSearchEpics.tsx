@@ -5,6 +5,8 @@ import { FETCH_REPOSITORIES, LOAD_REPOSITORIES } from 'actions/githubReposSearch
 import { request, fetchErrorEpic } from 'utils/request';
 import { fetchRepositoriesLoading, setRepositories, updateRepositories, loadRepositoriesLoading } from 'actions/githubReposSearchActions'
 
+const githubBaseUrl = 'https://api.github.com/search/repositories'
+
 const fetchRepositoriesEpic = (action$) => {
 	return action$.pipe(
 		ofType(FETCH_REPOSITORIES),
@@ -13,8 +15,7 @@ const fetchRepositoriesEpic = (action$) => {
 			const { queryString, perPage } = payload;
 			return request({
 				method: 'get',
-				url: `https://api.github.com/search/repositories?q=${queryString}&page=1&per_page=${perPage}`,
-				data: payload,
+				url: `${githubBaseUrl}?q=${queryString}&page=1&per_page=${perPage}`,
 			}).pipe(
         mergeMap((data) => {
 					return of(
@@ -38,8 +39,7 @@ const loadRepositoriesEpic = (action$) => {
 			const { queryString, page, perPage } = payload;
 			return request({
 				method: 'get',
-				url: `https://api.github.com/search/repositories?q=${queryString}=${page}&per_page=${perPage}`,
-				data: payload,
+				url: `${githubBaseUrl}?q=${queryString}=${page}&per_page=${perPage}`,
 			}).pipe(
         mergeMap((data) => {
 					return of(
