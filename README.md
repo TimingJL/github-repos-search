@@ -144,6 +144,43 @@ react + redux 處理非同步的方法有很多種，這邊我們選用 redux-ob
 
 redux-observable 是基於 rxjs 的 redux middleware。他提供一些方便的宣告式語法幫助我們處理一些複雜的非同步問題。例如上述 debounce 就是其中之一。
 
+本專案有用到的語法說明如下：
+
+**switchMap**
+switchMap 其實就是 map 加上 switch 簡化的寫法。switch 最重要的就是他會在新的 observable 送出後直接處理新的 observable 不管前一個 observable 是否完成，每當有新的 observable 送出就會直接把舊的 observable 退訂(unsubscribe)，永遠只處理最新的 observable!
+
+switchMap 可以幫助我們處理當頻繁且密集地發 request 的時候，永遠只處理最新的 request。
+
+Marble Diagram：
+```
+click  : ---------c-c------------------c--..
+        map(e => Rx.Observable.interval(1000))
+source : ---------o-o------------------o--..
+                   \ \                  \----0----1--...
+                    \ ----0----1----2----3----4--...
+                     ----0----1----2----3----4--...
+                     switch()
+example: -----------------0----1----2--------0----1--...
+```
+
+**mergeMap**
+
+mergeMap 其實就是 map 加上 mergeAll 簡化的寫法。mergeAll 會把二維的 observable 轉成一維的，並且能夠同時處理所有的 observable。
+
+Marble Diagram：
+```
+click  : ---------c-c------------------c--.. 
+        map(e => Rx.Observable.interval(1000))
+source : ---------o-o------------------o--..
+                   \ \                  \----0----1--...
+                    \ ----0----1----2----3----4--...
+                     ----0----1----2----3----4--...
+                     switch()
+example: ----------------00---11---22---33---(04)4--...
+```
+
+這邊我們用 mergeMap 來把 response 轉換攤平成 plain objects 並逐一處理。
+
 ![redux-observable-flow](https://miro.medium.com/max/3450/1*RLmJQvFIQBGqLFGDHL0QIA.png)
 
 非同步請求的時候，我們也需要去處理各種非同步狀態：
