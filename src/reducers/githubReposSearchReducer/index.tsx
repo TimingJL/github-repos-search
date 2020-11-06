@@ -75,10 +75,12 @@ export default (state = initialState, action) => {
 					loadMeta: { $apply: (prevMeta) => updateMetaError(prevMeta, error) }
 				});
 			}
+			const existingIds = state.repositories.items.map((item) => item.id);
+			const uniqueNewItems = action.payload.data.items.filter((item) => existingIds.indexOf(item.id) === -1);
 			return update(state, {
 				repositories: {
 					incomplete_results: { $set: action.payload.data.incomplete_results },
-					items: { $push: action.payload.data.items }
+					items: { $push: uniqueNewItems }
 				},
 				isLastPage: { $apply: () => {
 					const { page, perPage } = state;
