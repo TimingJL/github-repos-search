@@ -69,7 +69,7 @@ const MainContent = ({
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [perPage]
   );
 
 
@@ -83,7 +83,7 @@ const MainContent = ({
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mainContentRef]);
+  }, [mainContentRef, page, perPage]);
   return (
     <div ref={mainContentRef} className={classes.root} onScroll={handleOnScroll}>
       <SearchBarBlock handleOnChange={handleOnQueryChange} />
